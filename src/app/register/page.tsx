@@ -107,85 +107,147 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
-            <img
-                src="/images/college_logo.png"
-                alt="Veltech Logo"
-                className="h-20 mb-8 object-contain"
-            />
+        <div className="min-h-screen bg-white text-black font-sans selection:bg-orange-100">
+            {/* Navbar */}
+            <nav className="flex justify-between items-center px-6 md:px-12 py-4 bg-white">
+                <div className="text-xl font-bold tracking-tighter flex items-center gap-2 text-black">
+                    <img src="/images/college_logo.png" className="h-8 w-auto" alt="Veltech" />
+                    <span>Veltech university</span>
+                </div>
+                <div className="flex gap-6 md:gap-10 text-sm font-medium">
+                    <a href="/" className="hover:text-orange-600 transition-colors">Home</a>
+                    <a href="/register" className="underline decoration-2 underline-offset-4">Register</a>
+                    <a href="#" className="hover:text-orange-600 transition-colors">About</a>
+                    <a href="#" className="hover:text-orange-600 transition-colors">Contact</a>
+                </div>
+            </nav>
 
-            <div className="bg-white p-8 rounded-xl shadow-md w-96 text-center">
-                <img
-                    src="/images/event_logo.png"
-                    alt="Lavaza Logo"
-                    className="h-24 mx-auto mb-6 object-contain"
-                />
+            {/* Hero Section */}
+            <main className="px-6 md:px-12 pt-4 pb-8 overflow-hidden">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
+                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.8] pt-16">
+                        Vel Tech
+                    </h1>
 
-                <h1 className="text-2xl font-bold mb-6 text-black">
-                    Lavaza Registration 🎉
-                </h1>
+                    <div className="flex gap-8 md:gap-16 pb-8 md:pb-12 text-gray-400 font-bold uppercase tracking-widest text-[10px]">
+                        <div>
+                            <p>Strategy,Design,</p>
+                            <p className="text-black">Performace</p>
+                        </div>
+                        <div>
+                            <p>Global Creative</p>
+                            <p className="text-black">& Technical Agency</p>
+                        </div>
+                    </div>
+                </div>
 
-                {/* VTU ID */}
-                <input
-                    type="text"
-                    placeholder="vtu ID (e.g. vtu*****)"
-                    value={vtuId}
-                    onChange={(e) => setVtuId(e.target.value)}
-                    className="w-full mb-3 px-4 py-2 border border-black rounded text-black"
-                />
+                {/* Lavaza Logo Area */}
+                <div className="mt-8 flex justify-center">
+                    <img
+                        src="/images/event_logo_hd.png"
+                        alt="Lavaza"
+                        className="w-full max-w-6xl h-auto object-contain"
+                    />
+                </div>
 
-                {/* Name */}
-                <input
-                    type="text"
-                    placeholder="Full Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="w-full mb-3 px-4 py-2 border border-black rounded text-black"
-                />
+                {/* Registration Form */}
+                <section id="register-form" className="mt-16 max-w-4xl mx-auto pb-24">
+                    <div className="bg-gray-50/50 p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-sm transition-all hover:shadow-md">
+                        <div className="text-center mb-12">
+                            <span className="text-[10px] uppercase tracking-[0.3em] font-extrabold text-orange-600">Secure Entry</span>
+                            <h2 className="text-4xl font-bold tracking-tighter mt-2">Registration Form</h2>
+                        </div>
 
-                {/* Department */}
-                <select
-                    value={dept}
-                    onChange={(e) => setDept(e.target.value)}
-                    className="w-full mb-3 px-4 py-2 border border-black rounded text-black"
-                >
-                    <option value="">Select Department</option>
-                    <option value="CSE">CSE</option>
-                    <option value="ECE">ECE</option>
-                    <option value="EEE">EEE</option>
-                    <option value="MECH">MECH</option>
-                    <option value="AERO">AERO</option>
-                    <option value="CIVIL">CIVIL</option>
-                    <option value="MBA">MBA</option>
-                </select>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            {/* VTU ID */}
+                            <div className="space-y-1">
+                                <label className="text-[10px] uppercase tracking-wider font-bold text-gray-400 ml-1">VTU ID</label>
+                                <input
+                                    type="text"
+                                    placeholder="vtu12345"
+                                    value={vtuId}
+                                    onChange={(e) => setVtuId(e.target.value)}
+                                    className="w-full bg-white px-6 py-4 border-2 border-gray-200 focus:border-black rounded-xl outline-none transition-all shadow-sm text-lg text-black"
+                                />
+                            </div>
 
-                {/* Year */}
-                <select
-                    value={year}
-                    onChange={(e) => setYear(e.target.value)}
-                    className="w-full mb-5 px-4 py-2 border border-black rounded text-black"
-                >
-                    <option value="">Select Year</option>
-                    <option value="1st Year">1st Year</option>
-                    <option value="2nd Year">2nd Year</option>
-                    <option value="3rd Year">3rd Year</option>
-                    <option value="4th Year">4th Year</option>
-                    <option value="PG">PG</option>
-                </select>
+                            {/* Name */}
+                            <div className="space-y-1">
+                                <label className="text-[10px] uppercase tracking-wider font-bold text-gray-400 ml-1">Full Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Your Name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="w-full bg-white px-6 py-4 border-2 border-gray-200 focus:border-black rounded-xl outline-none transition-all shadow-sm text-lg text-black"
+                                />
+                            </div>
 
-                {/* Google Button */}
-                <button
-                    onClick={handleRegister}
-                    disabled={loading}
-                    className="w-full py-3 bg-black text-white rounded hover:bg-gray-800 disabled:opacity-60"
-                >
-                    {loading ? "Registering..." : "Sign in with Google"}
-                </button>
+                            {/* Department */}
+                            <div className="space-y-1">
+                                <label className="text-[10px] uppercase tracking-wider font-bold text-gray-400 ml-1">Department</label>
+                                <div className="relative">
+                                    <select
+                                        value={dept}
+                                        onChange={(e) => setDept(e.target.value)}
+                                        className="w-full bg-white px-6 py-4 border-2 border-gray-200 focus:border-black rounded-xl outline-none transition-all shadow-sm text-lg text-black appearance-none"
+                                    >
+                                        <option value="">Select Dept</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="ECE">ECE</option>
+                                        <option value="EEE">EEE</option>
+                                        <option value="MECH">MECH</option>
+                                        <option value="AERO">AERO</option>
+                                        <option value="CIVIL">CIVIL</option>
+                                        <option value="MBA">MBA</option>
+                                    </select>
+                                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                        ▼
+                                    </div>
+                                </div>
+                            </div>
 
-                <p className="text-xs text-black text-center mt-4">
-                    Use your official <b>@veltech.edu.in</b> email
-                </p>
-            </div>
+                            {/* Year */}
+                            <div className="space-y-1">
+                                <label className="text-[10px] uppercase tracking-wider font-bold text-gray-400 ml-1">Year</label>
+                                <div className="relative">
+                                    <select
+                                        value={year}
+                                        onChange={(e) => setYear(e.target.value)}
+                                        className="w-full bg-white px-6 py-4 border-2 border-gray-200 focus:border-black rounded-xl outline-none transition-all shadow-sm text-lg text-black appearance-none"
+                                    >
+                                        <option value="">Select Year</option>
+                                        <option value="1st Year">1st Year</option>
+                                        <option value="2nd Year">2nd Year</option>
+                                        <option value="3rd Year">3rd Year</option>
+                                        <option value="4th Year">4th Year</option>
+                                        <option value="PG">PG</option>
+                                    </select>
+                                    <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+                                        ▼
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Submit Button */}
+                            <div className="md:col-span-2 pt-6">
+                                <button
+                                    onClick={handleRegister}
+                                    disabled={loading}
+                                    className="w-full bg-black hover:bg-gray-800 text-white py-6 rounded-2xl text-xl font-bold transition-all active:scale-[0.98] disabled:bg-gray-400 shadow-xl shadow-gray-200"
+                                >
+                                    {loading ? "Processing..." : "Sign in with Google"}
+                                </button>
+                                <p className="text-center text-[11px] text-gray-400 font-bold mt-6 uppercase tracking-widest flex items-center justify-center gap-2">
+                                    <span className="w-8 h-[1px] bg-gray-200"></span>
+                                    Official Email Required (@veltech.edu.in)
+                                    <span className="w-8 h-[1px] bg-gray-200"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
     );
 }
