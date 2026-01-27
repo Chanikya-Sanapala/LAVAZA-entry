@@ -19,7 +19,7 @@ function VerifyContent() {
     const searchParams = useSearchParams();
     const token = searchParams.get("token")?.trim();
 
-    const [status, setStatus] = useState<"loading" | "allowed" | "used" | "invalid">("loading");
+    const [status, setStatus] = useState<"loading" | "allowed" | "used" | "invalid" | "success">("loading");
     const [student, setStudent] = useState<any>(null);
     const [loadingAction, setLoading] = useState(false);
 
@@ -30,7 +30,7 @@ function VerifyContent() {
             await updateDoc(doc(db, "passes", student.id), {
                 status: "USED",
             });
-            setStatus("used");
+            setStatus("success");
             toast.success("Entry confirmed! ✅");
         } catch (err: any) {
             toast.error("Failed to confirm entry");
@@ -84,6 +84,21 @@ function VerifyContent() {
         return (
             <div className="h-screen flex items-center justify-center text-2xl text-black">
                 Verifying pass...
+            </div>
+        );
+    }
+
+    if (status === "success") {
+        return (
+            <div className="h-screen flex items-center justify-center bg-green-100 p-4 text-center">
+                <div className="bg-white p-8 rounded-3xl shadow-2xl border-4 border-green-500 max-w-sm w-full">
+                    <div className="text-6xl mb-4">🏆</div>
+                    <h1 className="text-4xl font-extrabold text-green-700 mb-2">ENTRY GRANTED</h1>
+                    <p className="text-xl text-gray-700 font-medium">{student?.name}</p>
+                    <div className="mt-6 py-3 px-6 bg-green-600 text-white rounded-full font-bold inline-block animate-bounce">
+                        DONE! ✅
+                    </div>
+                </div>
             </div>
         );
     }
