@@ -146,12 +146,12 @@ export default function RegisterPage() {
                     <img
                         src="/images/event_logo_hd.png"
                         alt="Lavaza"
-                        className="w-full h-auto max-h-[200px] md:max-h-[350px] object-contain"
+                        className="w-full h-auto max-h-[180px] md:max-h-[300px] object-contain"
                     />
                 </div>
 
                 {/* Registration Form */}
-                <section id="register-form" className="mt-[-2rem] md:mt-[-6rem] max-w-4xl mx-auto pb-24 relative z-10">
+                <section id="register-form" className="mt-[-2rem] md:mt-[-4rem] max-w-4xl mx-auto pb-24 relative z-10">
                     <div className="bg-gray-50/50 p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-sm transition-all hover:shadow-md">
                         <div className="text-center mb-12">
                             <span className="text-[10px] uppercase tracking-[0.3em] font-extrabold text-orange-600">Secure Entry</span>
