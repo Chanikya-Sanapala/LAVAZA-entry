@@ -94,9 +94,9 @@ export default function RegisterPage() {
 
             // 6️⃣ Redirect to pass page
             router.push(`/pass/${token}`);
-        } catch (err) {
+        } catch (err: any) {
             console.error(err);
-            alert("Registration failed. Try again.");
+            alert(`Registration failed: ${err.message || "Try again."}`);
         } finally {
             setLoading(false);
         }
