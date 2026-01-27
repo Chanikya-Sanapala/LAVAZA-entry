@@ -109,7 +109,7 @@ export default function RegisterPage() {
     return (
         <div className="min-h-screen bg-white text-black font-sans selection:bg-orange-100">
             {/* Navbar */}
-            <nav className="flex justify-between items-center px-6 md:px-12 py-8 bg-white border-b border-gray-100">
+            <nav className="flex justify-between items-center px-6 md:px-12 py-4 bg-white border-b border-gray-100">
                 <div className="text-xl font-bold tracking-tighter flex items-center gap-2">
                     <img src="/images/college_logo.png" className="h-8 w-auto" alt="Veltech" />
                     <span className="hidden sm:inline">Veltech university</span>
@@ -123,7 +123,7 @@ export default function RegisterPage() {
             </nav>
 
             {/* Hero Text Section */}
-            <main className="px-6 md:px-12 pt-16 pb-12 overflow-hidden">
+            <main className="px-6 md:px-12 pt-8 pb-8 overflow-hidden">
                 <div className="relative">
                     <h1 className="text-8xl md:text-[14rem] font-bold tracking-tighter leading-[0.8] mb-4">
                         Hero <span className="text-3xl md:text-6xl align-top font-normal">(32)</span>
@@ -142,7 +142,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Hero Image Container */}
-                <div className="mt-16 relative group">
+                <div className="mt-8 relative group">
                     <div className="overflow-hidden rounded-[1rem] bg-white flex items-center justify-center border-b border-gray-100">
                         <img
                             src="/images/event_logo_hd.png"
@@ -153,8 +153,8 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Registration Form Section */}
-                <section id="register-form" className="mt-24 max-w-4xl mx-auto pb-32">
-                    <div className="text-center mb-16">
+                <section id="register-form" className="mt-12 max-w-4xl mx-auto pb-16">
+                    <div className="text-center mb-8">
                         <span className="text-[10px] uppercase tracking-[0.3em] font-extrabold text-orange-600">Secure Entry</span>
                         <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mt-2">Registration Form</h2>
                     </div>
