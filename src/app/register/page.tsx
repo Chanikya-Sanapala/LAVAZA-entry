@@ -125,7 +125,7 @@ export default function RegisterPage() {
             {/* Hero Section */}
             <main className="px-6 md:px-12 pt-4 pb-8 overflow-hidden">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
-                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.8] pt-16">
+                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.8] pt-2">
                         Vel Tech
                     </h1>
 
@@ -142,7 +142,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Lavaza Logo Area */}
-                <div className="mt-8 flex justify-center">
+                <div className="mt-0 flex justify-center">
                     <img
                         src="/images/event_logo_hd.png"
                         alt="Lavaza"
@@ -151,7 +151,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Registration Form */}
-                <section id="register-form" className="mt-16 max-w-4xl mx-auto pb-24">
+                <section id="register-form" className="mt-8 max-w-4xl mx-auto pb-24">
                     <div className="bg-gray-50/50 p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-sm transition-all hover:shadow-md">
                         <div className="text-center mb-12">
                             <span className="text-[10px] uppercase tracking-[0.3em] font-extrabold text-orange-600">Secure Entry</span>
