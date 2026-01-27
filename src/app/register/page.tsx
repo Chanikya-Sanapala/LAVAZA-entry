@@ -107,9 +107,21 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <div className="bg-white p-8 rounded-xl shadow-md w-96">
-                <h1 className="text-2xl font-bold mb-6 text-center text-black">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4">
+            <img
+                src="/images/college_logo.png"
+                alt="Veltech Logo"
+                className="h-20 mb-8 object-contain"
+            />
+
+            <div className="bg-white p-8 rounded-xl shadow-md w-96 text-center">
+                <img
+                    src="/images/event_logo.png"
+                    alt="Lavaza Logo"
+                    className="h-24 mx-auto mb-6 object-contain"
+                />
+
+                <h1 className="text-2xl font-bold mb-6 text-black">
                     Lavaza Registration 🎉
                 </h1>
 
