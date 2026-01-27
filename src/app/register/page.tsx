@@ -124,12 +124,12 @@ export default function RegisterPage() {
 
             {/* Hero Text Section */}
             <main className="px-6 md:px-12 pt-8 pb-8 overflow-hidden">
-                <div className="relative">
-                    <h1 className="text-8xl md:text-[14rem] font-[family-name:var(--font-pinyon)] leading-[0.6] mb-2">
+                <div className="relative py-4">
+                    <h1 className="text-7xl md:text-[10rem] font-[family-name:var(--font-pinyon)] leading-none mb-0">
                         Vel Tech
                     </h1>
 
-                    <div className="flex flex-col md:flex-row justify-end gap-8 md:gap-24 mt-4 md:mt-[-5rem]">
+                    <div className="flex flex-col md:flex-row justify-end gap-8 md:gap-24 mt-0 md:mt-[-3rem]">
                         <div className="max-w-[150px]">
                             <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">Strategy,Design,</p>
                             <p className="text-xs leading-tight font-medium uppercase font-bold">Performace</p>
@@ -142,8 +142,8 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Hero Image Container */}
-                <div className="mt-0 relative group">
-                    <div className="overflow-hidden rounded-[1rem] bg-white flex items-center justify-center">
+                <div className="mt-4 relative group">
+                    <div className="overflow-hidden rounded-[1rem] bg-white flex items-center justify-center p-2">
                         <img
                             src="/images/event_logo_hd.png"
                             alt="Lavaza Fest"
