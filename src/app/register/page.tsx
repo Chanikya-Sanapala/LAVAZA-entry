@@ -125,8 +125,8 @@ export default function RegisterPage() {
             {/* Hero Text Section */}
             <main className="px-6 md:px-12 pt-8 pb-8 overflow-hidden">
                 <div className="relative">
-                    <h1 className="text-8xl md:text-[14rem] font-bold tracking-tighter leading-[0.8] mb-4">
-                        Hero <span className="text-3xl md:text-6xl align-top font-normal">(32)</span>
+                    <h1 className="text-8xl md:text-[14rem] font-[family-name:var(--font-pinyon)] leading-[0.5] mb-8 pb-4">
+                        Vel Tech
                     </h1>
 
                     <div className="flex flex-col md:flex-row justify-end gap-8 md:gap-24 mt-8 md:mt-[-4rem]">
