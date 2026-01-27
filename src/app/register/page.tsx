@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import {
@@ -32,7 +33,7 @@ export default function RegisterPage() {
 
     const handleRegister = async () => {
         if (!vtuId || !name || !dept || !year) {
-            alert("Please fill all fields");
+            toast.error("Please fill all fields");
             return;
         }
 
@@ -48,7 +49,7 @@ export default function RegisterPage() {
 
             // 1️⃣ Check official email
             if (!email || !email.endsWith("@veltech.edu.in")) {
-                alert("Please use your official @veltech.edu.in email");
+                toast.error("Please use your official @veltech.edu.in email");
                 await signOut(auth);
                 setLoading(false);
                 return;
@@ -58,7 +59,7 @@ export default function RegisterPage() {
             const vtuFromEmail = email.split("@")[0]; // vtu21761
 
             if (vtuFromEmail !== vtuId.toLowerCase()) {
-                alert("VTU ID does not match your official email");
+                toast.error("VTU ID does not match your official email");
                 await signOut(auth);
                 setLoading(false);
                 return;
@@ -72,7 +73,7 @@ export default function RegisterPage() {
             const snapshot = await getDocs(q);
 
             if (!snapshot.empty) {
-                alert("You have already registered");
+                toast.error("You have already registered");
                 setLoading(false);
                 return;
             }
@@ -93,10 +94,11 @@ export default function RegisterPage() {
             });
 
             // 6️⃣ Redirect to pass page
+            toast.success("Registration successful! 🎉");
             router.push(`/pass/${token}`);
         } catch (err: any) {
             console.error(err);
-            alert(`Registration failed: ${err.message || "Try again."}`);
+            toast.error(`Registration failed: ${err.message || "Try again."}`);
         } finally {
             setLoading(false);
         }
