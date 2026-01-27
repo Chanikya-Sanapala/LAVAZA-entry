@@ -13,6 +13,8 @@ import {
     doc,
 } from "firebase/firestore";
 
+import toast from "react-hot-toast";
+
 function VerifyContent() {
     const searchParams = useSearchParams();
     const token = searchParams.get("token")?.trim();
@@ -27,34 +29,41 @@ function VerifyContent() {
         }
 
         const verifyPass = async () => {
-            const q = query(
-                collection(db, "passes"),
-                where("token", "==", token)
-            );
+            try {
+                const q = query(
+                    collection(db, "passes"),
+                    where("token", "==", token)
+                );
 
-            const snapshot = await getDocs(q);
+                const snapshot = await getDocs(q);
 
-            if (snapshot.empty) {
+                if (snapshot.empty) {
+                    setStatus("invalid");
+                    return;
+                }
+
+                const docSnap = snapshot.docs[0];
+                const data = docSnap.data();
+
+                setStudent(data);
+
+                if (data.status === "USED") {
+                    setStatus("used");
+                    return;
+                }
+
+                // Mark as USED
+                await updateDoc(doc(db, "passes", docSnap.id), {
+                    status: "USED",
+                });
+
+                setStatus("allowed");
+                toast.success("Pass verified! ✅");
+            } catch (err: any) {
+                console.error("Verification error:", err);
+                toast.error(`Verification failed: ${err.message}`);
                 setStatus("invalid");
-                return;
             }
-
-            const docSnap = snapshot.docs[0];
-            const data = docSnap.data();
-
-            setStudent(data);
-
-            if (data.status === "USED") {
-                setStatus("used");
-                return;
-            }
-
-            // Mark as USED
-            await updateDoc(doc(db, "passes", docSnap.id), {
-                status: "USED",
-            });
-
-            setStatus("allowed");
         };
 
         verifyPass();
