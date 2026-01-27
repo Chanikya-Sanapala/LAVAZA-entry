@@ -16,6 +16,13 @@ import {
 import toast from "react-hot-toast";
 
 function VerifyContent() {
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token")?.trim();
+
+    const [status, setStatus] = useState<"loading" | "allowed" | "used" | "invalid">("loading");
+    const [student, setStudent] = useState<any>(null);
+    const [loadingAction, setLoading] = useState(false);
+
     const handleAdmit = async () => {
         if (!student || !student.token) return;
         try {
@@ -78,8 +85,6 @@ function VerifyContent() {
 
         verifyPass();
     }, [token]);
-
-    const [loadingAction, setLoading] = useState(false);
 
     // UI STATES
     if (status === "loading") {
