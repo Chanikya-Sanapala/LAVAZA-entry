@@ -125,7 +125,7 @@ export default function RegisterPage() {
             {/* Hero Section */}
             <main className="px-6 md:px-12 pt-4 pb-8 overflow-hidden">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
-                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.8] pt-2">
+                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.5] pt-0">
                         Vel Tech
                     </h1>
 
@@ -142,7 +142,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Lavaza Logo Area */}
-                <div className="mt-0 flex justify-center">
+                <div className="mt-[-2rem] md:mt-[-6rem] flex justify-center">
                     <img
                         src="/images/event_logo_hd.png"
                         alt="Lavaza"
