@@ -125,11 +125,11 @@ export default function RegisterPage() {
             {/* Hero Text Section */}
             <main className="px-6 md:px-12 pt-8 pb-8 overflow-hidden">
                 <div className="relative">
-                    <h1 className="text-8xl md:text-[14rem] font-[family-name:var(--font-pinyon)] leading-[0.5] mb-8 pb-4">
+                    <h1 className="text-8xl md:text-[14rem] font-[family-name:var(--font-pinyon)] leading-[0.6] mb-2">
                         Vel Tech
                     </h1>
 
-                    <div className="flex flex-col md:flex-row justify-end gap-8 md:gap-24 mt-8 md:mt-[-4rem]">
+                    <div className="flex flex-col md:flex-row justify-end gap-8 md:gap-24 mt-4 md:mt-[-5rem]">
                         <div className="max-w-[150px]">
                             <p className="text-[10px] uppercase tracking-widest font-bold text-gray-400 mb-1">Strategy,Design,</p>
                             <p className="text-xs leading-tight font-medium uppercase font-bold">Performace</p>
@@ -142,19 +142,19 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Hero Image Container */}
-                <div className="mt-8 relative group">
-                    <div className="overflow-hidden rounded-[1rem] bg-white flex items-center justify-center border-b border-gray-100">
+                <div className="mt-0 relative group">
+                    <div className="overflow-hidden rounded-[1rem] bg-white flex items-center justify-center">
                         <img
                             src="/images/event_logo_hd.png"
                             alt="Lavaza Fest"
-                            className="w-full h-auto md:h-[600px] object-contain transition-transform duration-700 group-hover:scale-105"
+                            className="w-full h-auto md:h-[500px] object-cover scale-110 transition-transform duration-700 group-hover:scale-125"
                         />
                     </div>
                 </div>
 
                 {/* Registration Form Section */}
-                <section id="register-form" className="mt-12 max-w-4xl mx-auto pb-16">
-                    <div className="text-center mb-8">
+                <section id="register-form" className="mt-4 max-w-4xl mx-auto pb-8">
+                    <div className="text-center mb-4">
                         <span className="text-[10px] uppercase tracking-[0.3em] font-extrabold text-orange-600">Secure Entry</span>
                         <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mt-2">Registration Form</h2>
                     </div>
