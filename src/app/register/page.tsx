@@ -143,11 +143,11 @@ export default function RegisterPage() {
 
                 {/* Hero Image Container */}
                 <div className="mt-16 relative group">
-                    <div className="overflow-hidden rounded-[1rem] shadow-2xl border-4 border-blue-500">
+                    <div className="overflow-hidden rounded-[1rem] shadow-2xl border-4 border-blue-500 bg-white flex items-center justify-center p-8">
                         <img
-                            src="/images/hero.png"
+                            src="/images/event_logo.png"
                             alt="Lavaza Fest"
-                            className="w-full h-[300px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+                            className="w-auto h-[300px] md:h-[500px] object-contain transition-transform duration-700 group-hover:scale-105"
                         />
                     </div>
                 </div>
