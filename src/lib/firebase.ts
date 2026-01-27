@@ -4,12 +4,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDqMGRdo81ama2nQ3fLHRUFelKyu8D0w4s",
-    authDomain: "lavaza-entry.firebaseapp.com",
-    projectId: "lavaza-entry",
-    storageBucket: "lavaza-entry.firebasestorage.app",
-    messagingSenderId: "709783179125",
-    appId: "1:709783179125:web:7b75b0cfa9e772bf1f8d3c",
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
 // Prevent re-initialization (important for Next.js)
