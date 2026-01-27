@@ -123,9 +123,9 @@ export default function RegisterPage() {
             </nav>
 
             {/* Hero Section */}
-            <main className="px-6 md:px-12 pt-12 overflow-hidden">
+            <main className="px-6 md:px-12 pt-2 overflow-hidden">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end">
-                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.8] pt-12">
+                    <h1 className="text-8xl md:text-[12rem] font-[family-name:var(--font-pinyon)] leading-[0.5] pt-0">
                         Vel Tech
                     </h1>
 
