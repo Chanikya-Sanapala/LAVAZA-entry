@@ -24,21 +24,14 @@ function VerifyContent() {
     const [loadingAction, setLoading] = useState(false);
 
     const handleAdmit = async () => {
-        if (!student || !student.token) return;
+        if (!student || !student.id) return;
         try {
             setLoading(true);
-            const q = query(
-                collection(db, "passes"),
-                where("token", "==", student.token)
-            );
-            const snapshot = await getDocs(q);
-            if (!snapshot.empty) {
-                await updateDoc(doc(db, "passes", snapshot.docs[0].id), {
-                    status: "USED",
-                });
-                setStatus("used");
-                toast.success("Entry confirmed! ✅");
-            }
+            await updateDoc(doc(db, "passes", student.id), {
+                status: "USED",
+            });
+            setStatus("used");
+            toast.success("Entry confirmed! ✅");
         } catch (err: any) {
             toast.error("Failed to confirm entry");
         } finally {
@@ -133,11 +126,16 @@ function VerifyContent() {
                 <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-green-500">
                     <h1 className="text-3xl font-bold text-green-700 mb-4">✅ VALID PASS</h1>
 
-                    <div className="space-y-2 text-left bg-gray-50 p-4 rounded-xl mb-6">
+                    <div className="space-y-2 text-left bg-gray-50 p-4 rounded-xl mb-6 text-sm">
                         <p><span className="font-bold">Name:</span> {student?.name}</p>
                         <p><span className="font-bold">VTU No:</span> {student?.vtuId?.toUpperCase()}</p>
                         <p><span className="font-bold">Dept:</span> {student?.dept}</p>
                         <p><span className="font-bold">Year:</span> {student?.year}</p>
+                        {student?.createdAt && (
+                            <p className="text-gray-500 italic">
+                                <span className="font-bold">Registered:</span> {new Date(student.createdAt.seconds * 1000).toLocaleString()}
+                            </p>
+                        )}
                     </div>
 
                     <button

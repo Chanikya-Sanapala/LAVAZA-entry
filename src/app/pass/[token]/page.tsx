@@ -66,6 +66,12 @@ export default function PassPage() {
                 <p className="text-sm font-bold text-green-600">
                     Status: {data.status}
                 </p>
+
+                {data.createdAt && (
+                    <p className="text-[10px] text-gray-400 mt-2">
+                        Registered: {new Date(data.createdAt.seconds * 1000).toLocaleString()}
+                    </p>
+                )}
             </div>
         </div>
     );
