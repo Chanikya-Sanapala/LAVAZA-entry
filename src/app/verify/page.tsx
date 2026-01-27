@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { db } from "@/lib/firebase";
 import {
@@ -12,7 +13,7 @@ import {
     doc,
 } from "firebase/firestore";
 
-export default function VerifyPage() {
+function VerifyContent() {
     const searchParams = useSearchParams();
     const token = searchParams.get("token")?.trim();
 
@@ -100,5 +101,13 @@ export default function VerifyPage() {
                 <p>{student?.dept}</p>
             </div>
         </div>
+    );
+}
+
+export default function VerifyPage() {
+    return (
+        <Suspense fallback={<div className="h-screen flex items-center justify-center text-2xl">Loading...</div>}>
+            <VerifyContent />
+        </Suspense>
     );
 }
