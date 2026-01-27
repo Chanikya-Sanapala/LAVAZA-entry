@@ -147,7 +147,7 @@ export default function RegisterPage() {
                         <img
                             src="/images/event_logo_hd.png"
                             alt="Lavaza Fest"
-                            className="w-full h-auto md:h-[500px] object-cover scale-110 transition-transform duration-700 group-hover:scale-125"
+                            className="w-full h-auto md:max-h-[550px] object-contain transition-transform duration-700 group-hover:scale-105"
                         />
                     </div>
                 </div>
