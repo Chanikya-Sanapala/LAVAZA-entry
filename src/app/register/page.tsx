@@ -73,7 +73,9 @@ export default function RegisterPage() {
             const snapshot = await getDocs(q);
 
             if (!snapshot.empty) {
-                toast.error("You have already registered");
+                const existingData = snapshot.docs[0].data();
+                toast.success("Welcome back! Redirecting to your pass...");
+                router.push(`/pass/${existingData.token}`);
                 setLoading(false);
                 return;
             }

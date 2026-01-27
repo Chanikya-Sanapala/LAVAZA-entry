@@ -16,11 +16,28 @@ import {
 import toast from "react-hot-toast";
 
 function VerifyContent() {
-    const searchParams = useSearchParams();
-    const token = searchParams.get("token")?.trim();
-
-    const [status, setStatus] = useState<"loading" | "allowed" | "used" | "invalid">("loading");
-    const [student, setStudent] = useState<any>(null);
+    const handleAdmit = async () => {
+        if (!student || !student.token) return;
+        try {
+            setLoading(true);
+            const q = query(
+                collection(db, "passes"),
+                where("token", "==", student.token)
+            );
+            const snapshot = await getDocs(q);
+            if (!snapshot.empty) {
+                await updateDoc(doc(db, "passes", snapshot.docs[0].id), {
+                    status: "USED",
+                });
+                setStatus("used");
+                toast.success("Entry confirmed! ✅");
+            }
+        } catch (err: any) {
+            toast.error("Failed to confirm entry");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         if (!token) {
@@ -44,21 +61,14 @@ function VerifyContent() {
 
                 const docSnap = snapshot.docs[0];
                 const data = docSnap.data();
-
-                setStudent(data);
+                setStudent({ ...data, id: docSnap.id });
 
                 if (data.status === "USED") {
                     setStatus("used");
                     return;
                 }
 
-                // Mark as USED
-                await updateDoc(doc(db, "passes", docSnap.id), {
-                    status: "USED",
-                });
-
                 setStatus("allowed");
-                toast.success("Pass verified! ✅");
             } catch (err: any) {
                 console.error("Verification error:", err);
                 toast.error(`Verification failed: ${err.message}`);
@@ -69,10 +79,12 @@ function VerifyContent() {
         verifyPass();
     }, [token]);
 
+    const [loadingAction, setLoading] = useState(false);
+
     // UI STATES
     if (status === "loading") {
         return (
-            <div className="h-screen flex items-center justify-center text-2xl">
+            <div className="h-screen flex items-center justify-center text-2xl text-black">
                 Verifying pass...
             </div>
         );
@@ -80,9 +92,15 @@ function VerifyContent() {
 
     if (status === "invalid") {
         return (
-            <div className="h-screen flex items-center justify-center bg-red-100">
+            <div className="h-screen flex items-center justify-center bg-red-100 p-4">
                 <div className="text-center">
                     <h1 className="text-4xl font-bold text-red-600">❌ INVALID PASS</h1>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="mt-6 px-6 py-2 bg-red-600 text-white rounded-lg"
+                    >
+                        Try Again
+                    </button>
                 </div>
             </div>
         );
@@ -90,24 +108,44 @@ function VerifyContent() {
 
     if (status === "used") {
         return (
-            <div className="h-screen flex items-center justify-center bg-red-100">
-                <div className="text-center">
+            <div className="h-screen flex items-center justify-center bg-red-100 p-4">
+                <div className="text-center text-black">
                     <h1 className="text-4xl font-bold text-red-600">⛔ ALREADY ENTERED</h1>
-                    <p className="text-lg mt-2">{student?.name}</p>
-                    <p>{student?.vtuId?.toUpperCase()}</p>
+                    <div className="mt-4 p-4 bg-white rounded-xl shadow-sm border border-red-200">
+                        <p className="text-xl font-bold">{student?.name}</p>
+                        <p className="text-lg">{student?.vtuId?.toUpperCase()}</p>
+                    </div>
+                    <p className="mt-4 text-gray-600">This pass has already been used for entry.</p>
                 </div>
             </div>
         );
     }
 
-    // allowed
+    // allowed state (Not yet used)
     return (
-        <div className="h-screen flex items-center justify-center bg-green-100">
-            <div className="text-center">
-                <h1 className="text-4xl font-bold text-green-700">✅ ENTRY ALLOWED</h1>
-                <p className="text-lg mt-2">{student?.name}</p>
-                <p>{student?.vtuId?.toUpperCase()}</p>
-                <p>{student?.dept}</p>
+        <div className="h-screen flex items-center justify-center bg-green-50 p-4">
+            <div className="text-center text-black w-full max-w-sm">
+                <div className="bg-white p-6 rounded-2xl shadow-xl border-2 border-green-500">
+                    <h1 className="text-3xl font-bold text-green-700 mb-4">✅ VALID PASS</h1>
+
+                    <div className="space-y-2 text-left bg-gray-50 p-4 rounded-xl mb-6">
+                        <p><span className="font-bold">Name:</span> {student?.name}</p>
+                        <p><span className="font-bold">VTU No:</span> {student?.vtuId?.toUpperCase()}</p>
+                        <p><span className="font-bold">Dept:</span> {student?.dept}</p>
+                        <p><span className="font-bold">Year:</span> {student?.year}</p>
+                    </div>
+
+                    <button
+                        onClick={handleAdmit}
+                        disabled={loadingAction}
+                        className={`w-full py-4 text-xl font-bold text-white rounded-xl shadow-lg transition-transform active:scale-95 ${loadingAction ? 'bg-gray-400' : 'bg-green-600 hover:bg-green-700'
+                            }`}
+                    >
+                        {loadingAction ? "Processing..." : "CONFIRM ENTRY 🔓"}
+                    </button>
+
+                    <p className="mt-3 text-xs text-gray-500">Click only when the student is at the gate</p>
+                </div>
             </div>
         </div>
     );
@@ -115,7 +153,7 @@ function VerifyContent() {
 
 export default function VerifyPage() {
     return (
-        <Suspense fallback={<div className="h-screen flex items-center justify-center text-2xl">Loading...</div>}>
+        <Suspense fallback={<div className="h-screen flex items-center justify-center text-2xl text-black">Loading...</div>}>
             <VerifyContent />
         </Suspense>
     );
