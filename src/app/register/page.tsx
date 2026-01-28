@@ -67,7 +67,7 @@ export default function RegisterPage() {
 
             // 3️⃣ Prevent duplicate registration
             const q = query(
-                collection(db, "passes"),
+                collection(db, "registrations"),
                 where("vtuId", "==", vtuId.toLowerCase())
             );
             const snapshot = await getDocs(q);
@@ -84,7 +84,7 @@ export default function RegisterPage() {
             const token = generateToken(vtuId);
 
             // 5️⃣ Save to Firestore
-            await setDoc(doc(db, "passes", token), {
+            await setDoc(doc(db, "registrations", token), {
                 vtuId: vtuId.toLowerCase(),
                 name,
                 dept,
