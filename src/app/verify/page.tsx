@@ -3,15 +3,16 @@
 import { useEffect, useState } from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { db } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import {
     updateDoc,
     doc,
     getDoc,
 } from "firebase/firestore";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 
 import toast from "react-hot-toast";
-import { CheckCircle, XCircle, AlertCircle, Loader2, ShieldCheck, User, IdCard, MapPin, GraduationCap, Sparkles } from "lucide-react";
+import { CheckCircle, XCircle, AlertCircle, Loader2, ShieldCheck, User, IdCard, MapPin, GraduationCap, Sparkles, LogIn } from "lucide-react";
 
 function VerifyContent() {
     const searchParams = useSearchParams();
@@ -20,18 +21,47 @@ function VerifyContent() {
     const [status, setStatus] = useState<"loading" | "allowed" | "used" | "invalid" | "success">("loading");
     const [student, setStudent] = useState<any>(null);
     const [loadingAction, setLoading] = useState(false);
+    const [admin, setAdmin] = useState<any>(auth.currentUser);
+
+    // Sync auth state
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+            setAdmin(user);
+        });
+        return () => unsubscribe();
+    }, []);
 
     const handleAdmit = async () => {
         if (!student || !student.id) return;
+
         try {
             setLoading(true);
+
+            // 1️⃣ Ensure Admin Authentication
+            let currentUser = auth.currentUser;
+            if (!currentUser) {
+                const provider = new GoogleAuthProvider();
+                const result = await signInWithPopup(auth, provider);
+                currentUser = result.user;
+            }
+
+            const email = currentUser.email?.toLowerCase();
+            if (!email || !email.endsWith("@veltech.edu.in")) {
+                toast.error("Access Denied: Use your official @veltech.edu.in admin account");
+                await signOut(auth);
+                return;
+            }
+
+            // 2️⃣ Update Status
             await updateDoc(doc(db, "registrations", student.id), {
                 status: "USED",
             });
+
             setStatus("success");
             toast.success("Entry confirmed! ✅");
         } catch (err: any) {
-            toast.error("Failed to confirm entry");
+            console.error(err);
+            toast.error(`Verification failed: ${err.message || "Permissions insufficient"}`);
         } finally {
             setLoading(false);
         }
@@ -166,12 +196,12 @@ function VerifyContent() {
                     <p className="text-amber-600/60 mb-8 uppercase tracking-widest text-[10px] font-black italic">Duplicate Entry Attempt</p>
 
                     <div className="bg-white/40 rounded-2xl p-5 border border-white mb-8 text-left space-y-3 shadow-sm">
-                        <div className="flex items-center gap-3 group">
-                            <User size={16} className="text-amber-500 group-hover:scale-110 transition-transform" />
+                        <div className="flex items-center gap-3">
+                            <User size={16} className="text-amber-500" />
                             <p className="text-zinc-900 font-bold">{student?.name}</p>
                         </div>
-                        <div className="flex items-center gap-3 group">
-                            <IdCard size={16} className="text-amber-500 group-hover:scale-110 transition-transform" />
+                        <div className="flex items-center gap-3">
+                            <IdCard size={16} className="text-amber-500" />
                             <p className="text-zinc-500 text-sm font-bold uppercase tracking-widest">{student?.vtuId}</p>
                         </div>
                     </div>
@@ -263,7 +293,10 @@ function VerifyContent() {
                             {loadingAction ? (
                                 <Loader2 className="w-5 h-5 animate-spin" />
                             ) : (
-                                <>CONFIRM ENTRY 🔓</>
+                                <>
+                                    {!admin && <LogIn className="w-5 h-5" />}
+                                    {admin ? "CONFIRM ENTRY 🔓" : "LOGIN TO VERIFY"}
+                                </>
                             )}
                         </span>
                         {!loadingAction && (
@@ -271,7 +304,9 @@ function VerifyContent() {
                         )}
                     </button>
 
-                    <p className="text-center text-zinc-400 text-[8px] font-bold uppercase tracking-[0.2em]">Authorized Gate Verification Required</p>
+                    <p className="text-center text-zinc-400 text-[8px] font-bold uppercase tracking-[0.2em]">
+                        {admin ? `Logged in as ${admin.email}` : "Authorized Gate Verification Required"}
+                    </p>
                 </div>
             </div>
         </Container>
