@@ -25,14 +25,10 @@ export default function PassPage() {
                     const passData = docSnap.data();
                     setData(passData);
 
-                    // Generate QR code with more data for security
-                    const qrData = JSON.stringify({
-                        token: token,
-                        vtuId: passData.vtuId,
-                        name: passData.name
-                    });
+                    // Generate QR code with the verification URL
+                    const verifyUrl = `${window.location.origin}/verify?token=${token}`;
 
-                    const qrUrl = await QRCode.toDataURL(qrData, {
+                    const qrUrl = await QRCode.toDataURL(verifyUrl, {
                         margin: 2,
                         width: 400,
                         color: {

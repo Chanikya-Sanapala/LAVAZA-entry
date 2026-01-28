@@ -7,6 +7,7 @@ import { db } from "@/lib/firebase";
 import {
     collection,
     getDocs,
+    getDoc,
     query,
     where,
     updateDoc,
@@ -27,7 +28,7 @@ function VerifyContent() {
         if (!student || !student.id) return;
         try {
             setLoading(true);
-            await updateDoc(doc(db, "passes", student.id), {
+            await updateDoc(doc(db, "registrations", student.id), {
                 status: "USED",
             });
             setStatus("success");
@@ -47,19 +48,14 @@ function VerifyContent() {
 
         const verifyPass = async () => {
             try {
-                const q = query(
-                    collection(db, "passes"),
-                    where("token", "==", token)
-                );
+                const docRef = doc(db, "registrations", token);
+                const docSnap = await getDoc(docRef);
 
-                const snapshot = await getDocs(q);
-
-                if (snapshot.empty) {
+                if (!docSnap.exists()) {
                     setStatus("invalid");
                     return;
                 }
 
-                const docSnap = snapshot.docs[0];
                 const data = docSnap.data();
                 setStudent({ ...data, id: docSnap.id });
 
